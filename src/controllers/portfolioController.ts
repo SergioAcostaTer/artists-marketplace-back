@@ -3,6 +3,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import User, { IUser } from "../models/User";
 import Portfolio from "@/models/Portfolio";
 import { scrapSpotify } from "@/utils/scrapers";
+import { logger } from "@/infrastructure/logger";
 
 export const portfolioController = {
   getPortfolio: async (req: Request, res: Response) => {
@@ -14,7 +15,7 @@ export const portfolioController = {
           message: "User not found",
         });
       }
-      const portfolio = await Portfolio.findOne({ userId: user._id }).lean();
+      const portfolio = await Portfolio.findOne({ userId: user.id }).lean();
       if (!portfolio) {
         return res.status(StatusCodes.NOT_FOUND).json({
           message: "Portfolio not found for this user",
@@ -25,9 +26,9 @@ export const portfolioController = {
         username: user.username,
         avatar: user.profilePicture || null,
         banner: portfolio.banner || null,
-        mainColor: portfolio.mainColor || "#c21202",
-        secondaryColor: portfolio.secondaryColor || "#191414",
-        socialLinks: portfolio.socialLinks,
+        mainColor: portfolio?.mainColor,
+        secondaryColor: portfolio?.secondaryColor,
+        socialLinks: portfolio?.socialLinks,
       };
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {

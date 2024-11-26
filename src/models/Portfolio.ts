@@ -1,3 +1,4 @@
+import { generateRandomBanner } from "@/utils/banner";
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface ISocialLinks {
@@ -53,6 +54,15 @@ const portfolioSchema: Schema<IPortfolio> = new Schema(
     timestamps: true,
   }
 );
+
+portfolioSchema.pre<IPortfolio>("save", async function (next) {
+  if (!this.banner && !this.mainColor) {
+    const randomBanner = await generateRandomBanner();
+    this.banner = randomBanner.banner;
+    this.mainColor = randomBanner.mainColor;
+  }
+  next();
+});
 
 const Portfolio: Model<IPortfolio> = mongoose.model<IPortfolio>(
   "Portfolio",

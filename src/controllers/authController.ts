@@ -46,7 +46,6 @@ export const authController = {
         message: ReasonPhrases.CREATED,
         status: StatusCodes.CREATED,
       });
-
     } catch (error) {
       console.error("SignUp Error:", error);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -124,7 +123,7 @@ export const authController = {
    */
   logIn: async (req: Request, res: Response) => {
     try {
-      const { email, username, name } = req.body;
+      const { email, username, name, picture } = req.body;
 
       if (!email) {
         return res.status(StatusCodes.BAD_REQUEST).json({
@@ -139,16 +138,20 @@ export const authController = {
           email,
           name,
           username,
+          profilePicture: picture,
         });
 
         await user.save();
       }
 
-      let portfolio = new Portfolio({
-        userId: user.id,
-      });
+      let portfolio = await Portfolio.findOne({ userId: user.id });
+      if (!portfolio) {
+        portfolio = new Portfolio({
+          userId: user.id,
+        });
 
-      await portfolio.save();
+        await portfolio.save();
+      }
 
       const token = jwtSign(user.id);
       if (token) {
