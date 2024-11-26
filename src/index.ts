@@ -24,7 +24,7 @@ app.use(
   express.static(join(__dirname, process.env.STORAGE_PATH || ""))
 );
 
-// Middleware for JSON and URL encoding
+// File size limit
 app.use(
   express.json({ limit: "10mb" }),
   express.urlencoded({ limit: "10mb", extended: true })
@@ -38,12 +38,9 @@ app.use(cookieParser());
 app.use(authMiddleware);
 
 // Routes
-
 process.env.NODE_ENV === "development"
   ? app.use("/api", router)
   : app.use("/", router);
-
-console.log(process.env.JWT_SECRET);
 
 // Not found middleware
 app.use(notFoundMiddleware);
