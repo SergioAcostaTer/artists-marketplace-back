@@ -12,6 +12,8 @@ import { mongoose } from "./dataSources";
 import cookieParser from "cookie-parser";
 import { logger } from "./infrastructure/logger";
 
+require("dotenv").config();
+
 mongoose.run();
 
 const app: Express = express();
@@ -37,8 +39,9 @@ app.use(authMiddleware);
 
 // Routes
 
-process.env.NODE_ENV === "development" ? app.use("/api", router) : app.use("/", router);
-
+process.env.NODE_ENV === "development"
+  ? app.use("/api", router)
+  : app.use("/", router);
 
 // Not found middleware
 app.use(notFoundMiddleware);
