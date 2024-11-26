@@ -3,12 +3,13 @@ import { jwtVerify } from "../utils/jwt";
 import User from "../models/User";
 import { logger } from "../infrastructure/logger";
 import { clearToken } from "../utils/cookies";
+import { StatusCodes } from "http-status-codes";
 
 export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+): Promise<void | Response> => {
   try {
     const token =
       req.cookies["token"] ||
@@ -25,7 +26,11 @@ export const authMiddleware = async (
     if (!decoded || !decoded.id) {
       logger.info("Invalid or missing token claims");
       clearToken(res);
-      return next();
+
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: "Invalid or missing token claims",
+        status: StatusCodes.UNAUTHORIZED,
+      });
     }
 
     const user = await User.findOne(
@@ -48,6 +53,9 @@ export const authMiddleware = async (
 
     clearToken(res);
 
-    return next();
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "Internal server error",
+      status: StatusCodes.INTERNAL_SERVER_ERROR,
+    });
   }
 };
