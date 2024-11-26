@@ -23,10 +23,11 @@ export const setToken = (token: IAccessToken, res: Response): void => {
  * @param res - Express response object.
  */
 export const clearToken = (res: Response): void => {
-  res.clearCookie("token", {
+  res.cookie("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    expires: new Date(0),
     sameSite: "strict",
-    path: "/",
+    maxAge: 0,
   });
 };

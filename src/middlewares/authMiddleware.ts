@@ -25,12 +25,16 @@ export const authMiddleware = async (
     const decoded = jwtVerify(token);
     if (!decoded || !decoded.id) {
       logger.info("Invalid or missing token claims");
+
       clearToken(res);
 
-      return res.status(StatusCodes.UNAUTHORIZED).json({
-        message: "Invalid or missing token claims",
-        status: StatusCodes.UNAUTHORIZED,
-      });
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({
+          message: "Invalid or missing token claims",
+          status: StatusCodes.UNAUTHORIZED,
+        })
+        .end();
     }
 
     const user = await User.findOne(
@@ -53,9 +57,12 @@ export const authMiddleware = async (
 
     clearToken(res);
 
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: "Internal server error",
-      status: StatusCodes.INTERNAL_SERVER_ERROR,
-    });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        message: "Internal server error",
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
+      })
+      .end();
   }
 };

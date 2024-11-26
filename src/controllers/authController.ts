@@ -46,6 +46,7 @@ export const authController = {
         message: ReasonPhrases.CREATED,
         status: StatusCodes.CREATED,
       });
+
     } catch (error) {
       console.error("SignUp Error:", error);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
