@@ -18,13 +18,14 @@
     "paths": {
       "@/*": ["*"]
     },
-    "baseUrl": "./src", // Set the base directory for module resolution
-    "rootDir": "./src", // Set the root directory for TypeScript files
-    "outDir": "./public", // Set the output directory for compiled files
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "lib": ["ESNext"],
     "types": ["node"],
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "sourceMap": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.test.ts"]
 }
