@@ -1,7 +1,7 @@
 import { IAccessToken } from "../contracts/jwt";
 import { Request, Response } from "express";
 
-const ONE_MONTH = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+const ONE_MONTH = 30 * 24 * 60 * 60 * 1000;
 
 /**
  * Set a secure, HTTP-only cookie for the access token.

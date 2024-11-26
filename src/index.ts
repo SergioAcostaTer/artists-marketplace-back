@@ -43,6 +43,8 @@ process.env.NODE_ENV === "development"
   ? app.use("/api", router)
   : app.use("/", router);
 
+console.log(process.env.JWT_SECRET);
+
 // Not found middleware
 app.use(notFoundMiddleware);
 

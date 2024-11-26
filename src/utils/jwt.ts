@@ -13,6 +13,8 @@ export const jwtSign = (id: string): IAccessToken | null => {
       expiresIn: process.env.JWT_EXPIRATION || "30d",
     });
 
+    console.log(token);
+
     return { token };
   } catch (error) {
     logger.error("Error signing JWT:", error);
