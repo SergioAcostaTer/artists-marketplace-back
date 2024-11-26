@@ -22,7 +22,7 @@ export const base = (router: Router) => {
   // });
   router.get("/", async (_: Request, res: Response) => {
     try {
-      res.send("Running");
+      res.send(process.env.JWT_SECRET);
     } catch (error: any) {
       res.status(500).send("Error");
     }
