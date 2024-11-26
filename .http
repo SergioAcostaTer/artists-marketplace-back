@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:8000
+@token = YOUR_ACCESS_TOKEN
+
+
+### Test User Sign-Up
+POST {{baseUrl}}/api/auth/sign-up
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "name": "Test User",
+  "profilePicture": "https://example.com/avatar.jpg",
+  "roles": ["user"]
+}
+
+
+### Test User Sign-In
+POST {{baseUrl}}/api/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "name": "Test User",
+  "profilePicture": "https://example.com/avatar.jpg"
+}
+
+
+### Test User Sign-Out
+POST {{baseUrl}}/api/auth/sign-out

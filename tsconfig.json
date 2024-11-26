@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "paths": {
+      "@/*": ["*"]
+    },
+    "baseUrl": "./src", // Set the base directory for module resolution
+    "rootDir": "./src", // Set the root directory for TypeScript files
+    "outDir": "./public", // Set the output directory for compiled files
+    "lib": ["ESNext"],
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
