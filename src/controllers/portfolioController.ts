@@ -8,6 +8,7 @@ import { logger } from "@/infrastructure/logger";
 export const portfolioController = {
   getPortfolio: async (req: Request, res: Response) => {
     const { username } = req.query;
+    logger.info(`Getting portfolio for ${username}`);
     try {
       const user = await User.findOne({ username }).lean();
       if (!user) {
