@@ -44,6 +44,7 @@ export const authMiddleware = async (
 
     if (!user) {
       logger.info(`No user found for username: ${decoded.id}`);
+      clearToken(res);
       return next();
     }
 

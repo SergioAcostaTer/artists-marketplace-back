@@ -30,6 +30,7 @@ export const portfolioController = {
         mainColor: portfolio?.mainColor,
         secondaryColor: portfolio?.secondaryColor,
         socialLinks: portfolio?.socialLinks,
+        userId: portfolio?.userId,
       };
       return res.status(StatusCodes.OK).json(response);
     } catch (error) {
