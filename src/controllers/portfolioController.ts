@@ -65,4 +65,30 @@ export const portfolioController = {
       });
     }
   },
+  getMyPortfolio: async (req: Request, res: Response) => {
+    const { user } = res.locals;
+    try {
+      const portfolio = await Portfolio.findOne({ userId: user.id }).lean();
+      if (!portfolio) {
+        return res.status(StatusCodes.NOT_FOUND).json({
+          message: "Portfolio not found for this user",
+        });
+      }
+      const response = {
+        name: user.name,
+        username: user.username,
+        avatar: user.profilePicture || null,
+        banner: portfolio.banner || null,
+        mainColor: portfolio?.mainColor,
+        secondaryColor: portfolio?.secondaryColor,
+        socialLinks: portfolio?.socialLinks,
+        userId: portfolio?.userId,
+      };
+      return res.status(StatusCodes.OK).json(response);
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "An error occurred while retrieving the portfolio",
+      });
+    }
+  },
 };
